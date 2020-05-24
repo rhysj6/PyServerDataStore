@@ -1,1 +1,76 @@
-print("test")
+
+import pickle
+import time
+import pygsheets
+import os
+
+
+
+
+gc = pygsheets.authorize() # This will create a link to authorize 
+oldval = ""
+running = True
+count = 0
+# 1. Open spreadsheet by name 
+sh = gc.open('PyServerDataStore') # open spreadsheet
+if os.path.exists("data.pkl"):
+    file = open("data.pkl","rb")
+    data = pickle.load(file)
+    file.close
+else:
+    data = {"coins":"994","credits":"923"} #sample data value will later be changed to pickle file
+    file = open("data.pkl","wb")
+    pickle.dump(data, file)
+    file.close()
+
+wk1 = sh.sheet1
+
+
+
+while running == True:
+    count = count + 1
+    valOG = wk1.get_value('A1')
+    if valOG != oldval:
+        oldval = valOG
+        val = valOG.split('@')
+        if val[0] == "q":
+            print(valOG)
+            DataId = val[1]
+            CommandId = val[2]
+            command = val[3]
+            try:
+                par = val[4]
+            except:
+                par = ""
+            if command == "get":
+                try:
+                    resVal = data[par]
+                    responce = "r@" + DataId+"@"+CommandId+"@"+command+"@"+par+"@"+str(resVal)
+                except:
+                    responce = "r@" + DataId+"@"+CommandId+"@"+command+"@"+par+"@"+"nil"
+
+            elif command == "set":
+                SetVal = val[5]
+                data[par] = SetVal
+                responce = "r@" + DataId+"@"+CommandId+"@"+command+"@"+par+"@"+SetVal
+            
+            elif command == "save":
+                count = 20
+                responce = "r@" + DataId+"@"+CommandId+"@"+command
+
+            elif command == "exit":
+                running = False
+                responce = "r@" + DataId+"@"+CommandId+"@"+command
+
+
+
+            wk1.update_value('A1',responce)
+            print(responce)
+            time.sleep(0.5)
+            if count >= 20:
+                count = 0
+                file = open("data.pkl","wb")
+                pickle.dump(data, file)
+                file.close()
+                
+                
