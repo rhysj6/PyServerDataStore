@@ -103,10 +103,10 @@ while running == True:
                 autoRunning = False
                 response = "r@" + CommandId+"@"+command
             
-            if Encoded == True:
-                finalResponse = "E@" + CommandId + "@" + str(Encode(response, int(CommandId)))
-            else:
+            if Encoded == False:
                 finalResponse = response
+            else:
+                finalResponse = "E@" + CommandId + "@" + str(Encode(response, int(CommandId)))
 
 
 
