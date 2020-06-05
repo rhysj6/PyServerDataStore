@@ -18,7 +18,7 @@ if os.path.exists("dataStore.pkl"):
     data = pickle.load(file)
     file.close
 else:
-    data = {"coins":"994","credits":"923","updateTime":"10"} #sample data value will later be changed to pickle file
+    data = {"coins":"994","credits":"923","updateTime":"100"} #sample data value will later be changed to pickle file
     file = open("dataStore.pkl","wb")
     pickle.dump(data, file)
     file.close()
@@ -27,11 +27,46 @@ wk1 = sh.sheet1
 timeOfMostRecentCommand = 0
 
 
+def Encode(string, key, testTime = False):
+    startTime = time.time()
+    listOutput = []
+    for i in string:
+        x = ord(i)
+        x = x**key
+        listOutput.insert(len(listOutput),x)
+    endTime = time.time()
+    if testTime == True:
+        print("took ", str(endTime-startTime)," seconds")
+    return listOutput
+
+
+def Decode(EncodedList, key, testTime = False):
+    startTime = time.time()
+    StrOutput = ""
+    for i in EncodedList:
+        x = int(i)
+        x = x**(1/key)
+        c = chr(int(x))
+        StrOutput = StrOutput + c
+    endTime = time.time()
+    if testTime == True:
+        print("took ", str(endTime-startTime)," seconds")
+    return StrOutput
+
 while running == True:
+    Encoded = False
     count = count + 1
     valOG = wk1.get_value('A1')
     if valOG != oldval:
         oldval = valOG
+        if valOG[0] == "E":
+            val = valOG.split('@')
+            ComID = val[1]
+            Com = eval(val[2])
+            valOG = Decode(Com, ComID)
+            Encoded = True
+
+            
         val = valOG.split('@')
         if val[0] == "q":
             timeOfMostRecentCommand = time.time()
@@ -45,31 +80,35 @@ while running == True:
             if command == "get":
                 try:
                     resVal = data[par]
-                    responce = "r@" +CommandId+"@"+command+"@"+par+"@"+str(resVal)
+                    response = "r@" +CommandId+"@"+command+"@"+par+"@"+str(resVal)
                 except:
-                    responce = "r@" + CommandId+"@"+command+"@"+par+"@"+"nil"
+                    response = "r@" + CommandId+"@"+command+"@"+par+"@"+"nil"
 
             elif command == "set":
                 SetVal = val[4]
                 data[par] = SetVal
-                responce = "r@" + CommandId+"@"+command+"@"+par+"@"+SetVal
+                response = "r@" + CommandId+"@"+command+"@"+par+"@"+SetVal
             
             elif command == "save":
                 count = 20
-                responce = "r@" + CommandId+"@"+command
+                response = "r@" + CommandId+"@"+command
 
             elif command == "exit":
                 running = False
-                responce = "r@" + CommandId+"@"+command
+                response = "r@" + CommandId+"@"+command
+
             elif command == "exitAuto":
                 running = False
                 autoRunning = False
-                responce = "r@" + CommandId+"@"+command
+                response = "r@" + CommandId+"@"+command
+            
+            if Encoded == True:
+                response = "E@" + CommandId + "@" + Encode(response, CommandId)
 
 
 
-            wk1.update_value('A1',responce)
-            print(responce)
+            wk1.update_value('A1',response)
+            print(response)
             time.sleep(0.5)
             if count >= 20:
                 count = 0
