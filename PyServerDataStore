@@ -61,6 +61,10 @@ while running == True:
             elif command == "exit":
                 running = False
                 responce = "r@" + CommandId+"@"+command
+            elif command == "exitAuto":
+                running = False
+                autoRunning = False
+                responce = "r@" + CommandId+"@"+command
 
 
 
@@ -74,7 +78,7 @@ while running == True:
                 file.close()
     else:
         timeSinceMostRecentCommand = time.time() - timeOfMostRecentCommand
-        if timeSinceMostRecentCommand > 20:
+        if timeSinceMostRecentCommand > 6:
             running = False
                 
                 
