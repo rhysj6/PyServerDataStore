@@ -43,7 +43,13 @@ def Encode(string, key, testTime = False):
 def Decode(EncodedList, key, testTime = False):
     startTime = time.time()
     StrOutput = ""
-    for i in EncodedList:
+    #print(EncodedList)
+    EncodedList = EncodedList.replace("[","")
+    EncodedList = EncodedList.replace("]","")
+    Elist = EncodedList.split(",")
+
+    for i in Elist:
+        
         x = int(i)
         x = x**(1/key)
         c = chr(int(x))
