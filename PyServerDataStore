@@ -74,7 +74,7 @@ while running == True:
                 file.close()
     else:
         timeSinceMostRecentCommand = time.time() - timeOfMostRecentCommand
-        if timeSinceMostRecentCommand > 6:
+        if timeSinceMostRecentCommand > 20:
             running = False
                 
                 
