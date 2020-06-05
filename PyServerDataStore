@@ -44,9 +44,6 @@ def Decode(EncodedList, key, testTime = False):
     startTime = time.time()
     StrOutput = ""
     #print(EncodedList)
-    #EncodedList = EncodedList.replace("[","")
-    #EncodedList = EncodedList.replace("]","")
-    #Elist = EncodedList.split(",")
 
     for i in EncodedList:
         
