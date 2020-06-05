@@ -63,6 +63,7 @@ while running == True:
             val = valOG.split('@')
             ComID = val[1]
             Com = eval(val[2])
+            print(Com)
             valOG = Decode(Com, int(ComID))
             Encoded = True
 
@@ -103,7 +104,7 @@ while running == True:
                 response = "r@" + CommandId+"@"+command
             
             if Encoded == True:
-                response = "E@" + CommandId + "@" + Encode(response, int(CommandId))
+                response = "E@" + CommandId + "@" + str(Encode(response, int(CommandId)))
 
 
 
