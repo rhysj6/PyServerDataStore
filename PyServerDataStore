@@ -63,7 +63,7 @@ while running == True:
             val = valOG.split('@')
             ComID = val[1]
             Com = eval(val[2])
-            print(Com)
+            #print(Com)
             valOG = Decode(Com, int(ComID))
             Encoded = True
 
@@ -104,12 +104,14 @@ while running == True:
                 response = "r@" + CommandId+"@"+command
             
             if Encoded == True:
-                response = "E@" + CommandId + "@" + str(Encode(response, int(CommandId)))
+                finalResponse = "E@" + CommandId + "@" + str(Encode(response, int(CommandId)))
+            else:
+                finalResponse = response
 
 
 
             wk1.update_value('A1',response)
-            print(response)
+            #print(response)
             time.sleep(0.5)
             if count >= 20:
                 count = 0
