@@ -109,7 +109,7 @@ while running == True:
 
 
 
-            wk1.update_value('A1',response)
+            wk1.update_value('A1',finalResponse)
             #print(response)
             time.sleep(0.5)
             if count >= 20:
