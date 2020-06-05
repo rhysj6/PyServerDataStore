@@ -13,13 +13,13 @@ running = True
 count = 0
 # 1. Open spreadsheet by name 
 sh = gc.open('PyServerDataStore') # open spreadsheet
-if os.path.exists("data.pkl"):
-    file = open("data.pkl","rb")
+if os.path.exists("dataStore.pkl"):
+    file = open("dataStore.pkl","rb")
     data = pickle.load(file)
     file.close
 else:
-    data = {"coins":"994","credits":"923"} #sample data value will later be changed to pickle file
-    file = open("data.pkl","wb")
+    data = {"coins":"994","credits":"923","updateTime":"10"} #sample data value will later be changed to pickle file
+    file = open("dataStore.pkl","wb")
     pickle.dump(data, file)
     file.close()
 
@@ -73,12 +73,12 @@ while running == True:
             time.sleep(0.5)
             if count >= 20:
                 count = 0
-                file = open("data.pkl","wb")
+                file = open("dataStore.pkl","wb")
                 pickle.dump(data, file)
                 file.close()
     else:
         timeSinceMostRecentCommand = time.time() - timeOfMostRecentCommand
-        if timeSinceMostRecentCommand > 6:
+        if timeSinceMostRecentCommand > int(data["updateTime"]):
             running = False
                 
                 
