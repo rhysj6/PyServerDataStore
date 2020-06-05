@@ -35,32 +35,31 @@ while running == True:
         val = valOG.split('@')
         if val[0] == "q":
             print(valOG)
-            DataId = val[1]
-            CommandId = val[2]
-            command = val[3]
+            CommandId = val[1]
+            command = val[2]
             try:
-                par = val[4]
+                par = val[3]
             except:
                 par = ""
             if command == "get":
                 try:
                     resVal = data[par]
-                    responce = "r@" + DataId+"@"+CommandId+"@"+command+"@"+par+"@"+str(resVal)
+                    responce = "r@" +CommandId+"@"+command+"@"+par+"@"+str(resVal)
                 except:
-                    responce = "r@" + DataId+"@"+CommandId+"@"+command+"@"+par+"@"+"nil"
+                    responce = "r@" + CommandId+"@"+command+"@"+par+"@"+"nil"
 
             elif command == "set":
                 SetVal = val[5]
                 data[par] = SetVal
-                responce = "r@" + DataId+"@"+CommandId+"@"+command+"@"+par+"@"+SetVal
+                responce = "r@" + CommandId+"@"+command+"@"+par+"@"+SetVal
             
             elif command == "save":
                 count = 20
-                responce = "r@" + DataId+"@"+CommandId+"@"+command
+                responce = "r@" + CommandId+"@"+command
 
             elif command == "exit":
                 running = False
-                responce = "r@" + DataId+"@"+CommandId+"@"+command
+                responce = "r@" + CommandId+"@"+command
 
 
 
