@@ -59,16 +59,14 @@ while running == True:
     valOG = wk1.get_value('A1')
     if valOG != oldval:
         oldval = valOG
-        if valOG[0] == "E":
-            val = valOG.split('@')
+        val = valOG.split('@')
+        if val[0] == "E":
             ComID = val[1]
             Com = eval(val[2])
             #print(Com)
             valOG = Decode(Com, int(ComID))
             Encoded = True
-
-            
-        val = valOG.split('@')
+            val = valOG.split('@')
         if val[0] == "q":
             timeOfMostRecentCommand = time.time()
             print(valOG)
