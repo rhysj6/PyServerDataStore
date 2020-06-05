@@ -59,8 +59,9 @@ while running == True:
     valOG = wk1.get_value('A1')
     if valOG != oldval:
         oldval = valOG
-        val = valOG.split('@')
+        val = valOG.split("@")
         if val[0] == "E":
+            print("E")
             ComID = val[1]
             Com = eval(val[2])
             #print(Com)
