@@ -44,11 +44,11 @@ def Decode(EncodedList, key, testTime = False):
     startTime = time.time()
     StrOutput = ""
     #print(EncodedList)
-    EncodedList = EncodedList.replace("[","")
-    EncodedList = EncodedList.replace("]","")
-    Elist = EncodedList.split(",")
+    #EncodedList = EncodedList.replace("[","")
+    #EncodedList = EncodedList.replace("]","")
+    #Elist = EncodedList.split(",")
 
-    for i in Elist:
+    for i in EncodedList:
         
         x = int(i)
         x = x**(1/key)
