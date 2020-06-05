@@ -50,7 +50,7 @@ while running == True:
                     responce = "r@" + CommandId+"@"+command+"@"+par+"@"+"nil"
 
             elif command == "set":
-                SetVal = val[5]
+                SetVal = val[4]
                 data[par] = SetVal
                 responce = "r@" + CommandId+"@"+command+"@"+par+"@"+SetVal
             
@@ -74,7 +74,7 @@ while running == True:
                 file.close()
     else:
         timeSinceMostRecentCommand = time.time() - timeOfMostRecentCommand
-        if timeSinceMostRecentCommand > 60:
+        if timeSinceMostRecentCommand > 6:
             running = False
                 
                 
