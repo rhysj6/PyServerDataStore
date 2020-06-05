@@ -24,7 +24,7 @@ else:
     file.close()
 
 wk1 = sh.sheet1
-
+timeOfMostRecentCommand = 0
 
 
 while running == True:
@@ -34,6 +34,7 @@ while running == True:
         oldval = valOG
         val = valOG.split('@')
         if val[0] == "q":
+            timeOfMostRecentCommand = time.time()
             print(valOG)
             CommandId = val[1]
             command = val[2]
@@ -71,5 +72,9 @@ while running == True:
                 file = open("data.pkl","wb")
                 pickle.dump(data, file)
                 file.close()
+    else:
+        timeSinceMostRecentCommand = time.time() - timeOfMostRecentCommand
+        if timeSinceMostRecentCommand > 60:
+            running = False
                 
                 
